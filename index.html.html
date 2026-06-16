@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Café de Misiones – El ecosistema cafetero de la provincia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --selva: #1B3A2D;
+    --selva-light: #2A5440;
+    --tierra: #8B4513;
+    --cobre: #C4862A;
+    --crema: #F5EDD6;
+    --crema-dark: #EDE0C4;
+    --blanco: #FDFAF4;
+    --texto: #1A1A1A;
+    --texto-mid: #4A4A4A;
+    --texto-light: #7A7A6A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--blanco);
+    color: var(--texto);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--selva);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 20% 50%, rgba(196,134,42,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 80% 30%, rgba(139,69,19,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Steam animation - the signature element */
+  .steam-divider {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--cobre), var(--cobre), transparent);
+    position: relative;
+    overflow: hidden;
+  }
+  .steam-divider::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: shimmer 2.4s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0% { left: -60%; }
+    100% { left: 160%; }
+  }
+
+  .hero-left {
+    padding: 80px 60px 80px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cobre);
+    margin-bottom: 28px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 5vw, 68px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--crema);
+    margin-bottom: 12px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--cobre);
+  }
+
+  .hero-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(245,237,214,0.65);
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(245,237,214,0.75);
+    line-height: 1.75;
+    max-width: 440px;
+    margin-bottom: 48px;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(245,237,214,0.07);
+    border: 1px solid rgba(196,134,42,0.3);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: var(--crema);
+    font-weight: 400;
+  }
+
+  .badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── FORM PANEL ── */
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 80px 80px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .form-card {
+    background: var(--crema);
+    border-radius: 4px;
+    padding: 48px 44px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(196,134,42,0.2);
+    position: relative;
+  }
+
+  .form-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--tierra), var(--cobre));
+    border-radius: 4px 4px 0 0;
+  }
+
+  .form-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cobre);
+    margin-bottom: 10px;
+  }
+
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--selva);
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+
+  .form-desc {
+    font-size: 13px;
+    color: var(--texto-mid);
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--texto-mid);
+    margin-bottom: 7px;
+  }
+
+  .form-input, .form-select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--crema-dark);
+    border-radius: 3px;
+    background: var(--blanco);
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: var(--texto);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .form-input:focus, .form-select:focus {
+    border-color: var(--selva);
+    box-shadow: 0 0 0 3px rgba(27,58,45,0.1);
+  }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234A4A4A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    width: 100%;
+    padding: 15px 24px;
+    background: var(--selva);
+    color: var(--crema);
+    border: none;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary:hover {
+    background: var(--selva-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active { transform: translateY(0); }
+
+  .form-privacy {
+    font-size: 11px;
+    color: var(--texto-light);
+    text-align: center;
+    margin-top: 14px;
+    line-height: 1.5;
+  }
+
+  /* SUCCESS STATE */
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .success-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  .success-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--selva);
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+
+  .success-text {
+    font-size: 14px;
+    color: var(--texto-mid);
+    line-height: 1.6;
+  }
+
+  /* ── STATS ── */
+  .stats-bar {
+    background: var(--cobre);
+    padding: 28px 80px;
+    display: flex;
+    gap: 0;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .stat-item {
+    text-align: center;
+    flex: 1;
+    position: relative;
+  }
+
+  .stat-item + .stat-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 20%; bottom: 20%;
+    width: 1px;
+    background: rgba(255,255,255,0.25);
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--blanco);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(253,250,244,0.8);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ECOSYSTEM ── */
+  .section {
+    padding: 100px 80px;
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cobre);
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    color: var(--selva);
+    line-height: 1.15;
+    margin-bottom: 20px;
+    max-width: 600px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--tierra);
+  }
+
+  .section-body {
+    font-size: 16px;
+    color: var(--texto-mid);
+    line-height: 1.8;
+    max-width: 580px;
+    margin-bottom: 56px;
+    font-weight: 300;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--crema-dark);
+    border: 2px solid var(--crema-dark);
+  }
+
+  .card {
+    background: var(--blanco);
+    padding: 40px 36px;
+    position: relative;
+  }
+
+  .card-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--selva);
+    margin-bottom: 12px;
+  }
+
+  .card-text {
+    font-size: 14px;
+    color: var(--texto-mid);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .card-accent {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--crema-dark);
+    transition: background 0.3s;
+  }
+
+  .card:hover .card-accent { background: var(--cobre); }
+
+  /* ── LEY ── */
+  .ley-section {
+    background: var(--selva);
+    padding: 100px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .ley-left .section-eyebrow { color: var(--cobre); }
+
+  .ley-left .section-title {
+    color: var(--crema);
+    max-width: 100%;
+  }
+
+  .ley-left .section-body {
+    color: rgba(245,237,214,0.7);
+    max-width: 100%;
+    margin-bottom: 36px;
+  }
+
+  .ley-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ley-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px;
+    background: rgba(245,237,214,0.05);
+    border: 1px solid rgba(196,134,42,0.2);
+    border-radius: 2px;
+  }
+
+  .ley-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--cobre);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+  }
+
+  .ley-text-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--crema);
+    margin-bottom: 5px;
+    letter-spacing: 0.03em;
+  }
+
+  .ley-text-body {
+    font-size: 13px;
+    color: rgba(245,237,214,0.6);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ── QUIENES ── */
+  .quienes-section {
+    padding: 100px 80px;
+    background: var(--crema);
+  }
+
+  .quienes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .quien-card {
+    background: var(--blanco);
+    border: 1px solid var(--crema-dark);
+    padding: 32px 28px;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .quien-card:hover {
+    border-color: var(--cobre);
+    transform: translateY(-3px);
+  }
+
+  .quien-icon {
+    font-size: 36px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .quien-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--selva);
+    margin-bottom: 8px;
+  }
+
+  .quien-text {
+    font-size: 13px;
+    color: var(--texto-light);
+    line-height: 1.6;
+  }
+
+  /* ── CTA FINAL ── */
+  .cta-section {
+    padding: 120px 80px;
+    text-align: center;
+    background: var(--blanco);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '☕';
+    position: absolute;
+    font-size: 400px;
+    opacity: 0.025;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .cta-section .section-title {
+    margin: 0 auto 20px;
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .cta-section .section-body {
+    margin: 0 auto 48px;
+    text-align: center;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    padding: 18px 48px;
+    background: var(--selva);
+    color: var(--crema);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.15s;
+    cursor: pointer;
+    border: none;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .btn-cta:hover {
+    background: var(--selva-light);
+    transform: translateY(-2px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--texto);
+    padding: 48px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--crema);
+    font-weight: 700;
+  }
+
+  .footer-brand span {
+    color: var(--cobre);
+  }
+
+  .footer-text {
+    font-size: 12px;
+    color: rgba(245,237,214,0.4);
+    font-weight: 300;
+  }
+
+  .footer-infusiona {
+    font-size: 12px;
+    color: rgba(245,237,214,0.5);
+  }
+
+  .footer-infusiona strong {
+    color: var(--cobre);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+    .hero-left { padding: 60px 24px 40px; }
+    .hero-right { padding: 0 24px 60px; }
+    .form-card { max-width: 100%; }
+    .stats-bar { padding: 28px 24px; flex-wrap: wrap; gap: 24px; }
+    .stat-item + .stat-item::before { display: none; }
+    .section, .ley-section, .quienes-section, .cta-section { padding: 64px 24px; }
+    .ley-section { grid-template-columns: 1fr; gap: 48px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .quienes-grid { grid-template-columns: repeat(2, 1fr); }
+    footer { flex-direction: column; gap: 16px; text-align: center; padding: 40px 24px; }
+  }
+
+  /* Fade in */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="eyebrow">Misiones · Argentina · 2026</p>
+    <h1 class="hero-title">El café<br>que nació en<br><em>la selva.</em></h1>
+    <p class="hero-subtitle">La provincia con tres infusiones propias.</p>
+    <p class="hero-desc">
+      Misiones está construyendo el primer ecosistema cafetero organizado de Argentina. Productores, tostadores, cafeterías, instituciones y empresas, articulados por primera vez bajo una misma plataforma.
+    </p>
+    <div class="hero-badges">
+      <span class="badge"><span class="badge-dot" style="background:#C4862A"></span>Café</span>
+      <span class="badge"><span class="badge-dot" style="background:#4A7C59"></span>Yerba Mate</span>
+      <span class="badge"><span class="badge-dot" style="background:#8BA888"></span>Té</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="form-card">
+      <div id="form-content">
+        <p class="form-tag">Pre-registro gratuito</p>
+        <h2 class="form-title">Sumate al ecosistema</h2>
+        <p class="form-desc">Sé parte desde el origen. Te mantenemos informado sobre la Mesa Técnica, el Foro del Café y todas las acciones del ecosistema.</p>
+
+        <form id="registro-form">
+          <div class="form-group">
+            <label class="form-label" for="nombre">Nombre completo</label>
+            <input class="form-input" type="text" id="nombre" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" type="email" id="email" placeholder="tu@email.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="perfil">¿Cómo participás del ecosistema?</label>
+            <select class="form-select" id="perfil" required>
+              <option value="" disabled selected>Seleccioná tu perfil</option>
+              <option value="productor">Productor de café</option>
+              <option value="cafeteria">Cafetería / Tostador</option>
+              <option value="empresa">Empresa / Proveedor</option>
+              <option value="institucion">Institución / Organismo</option>
+              <option value="turismo">Sector turístico</option>
+              <option value="inversor">Inversor / Financiador</option>
+              <option value="interesado">Interesado en el sector</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="localidad">Localidad</label>
+            <input class="form-input" type="text" id="localidad" placeholder="Posadas, Oberá, Iguazú...">
+          </div>
+          <button type="submit" class="btn-primary">Registrarme en el ecosistema</button>
+          <p class="form-privacy">Sin spam. Solo información estratégica del ecosistema cafetero misionero.</p>
+        </form>
+      </div>
+
+      <div class="form-success" id="form-success">
+        <div class="success-icon">☕</div>
+        <h3 class="success-title">¡Bienvenido al ecosistema!</h3>
+        <p class="success-text">Tu registro fue recibido. Te contactaremos pronto con información sobre la Mesa Técnica del Café y las próximas acciones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEAM DIVIDER -->
+<div class="steam-divider"></div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">600+</div>
+    <div class="stat-label">Productores interesados</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Infusiones estratégicas</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">Ley VIII</div>
+    <div class="stat-label">Marco legal provincial</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2026</div>
+    <div class="stat-label">El año del ecosistema</div>
+  </div>
+</div>
+
+<!-- ECOSISTEMA -->
+<section class="section fade-in">
+  <p class="section-eyebrow">Por qué ahora</p>
+  <h2 class="section-title">Misiones tiene todo.<br>Solo falta <em>articularlo.</em></h2>
+  <p class="section-body">La Ley Provincial del Café fue aprobada. Los productores existen. Las cafeterías crecen. Las empresas invierten. El turismo pregunta. Lo único que falta es un espacio donde todos estos actores se encuentren, se organicen y generen valor juntos.</p>
+
+  <div class="cards-grid">
+    <div class="card">
+      <span class="card-icon">🌱</span>
+      <h3 class="card-title">Producción</h3>
+      <p class="card-text">Más de 600 productores interesados en desarrollar el café misionero. Un suelo y un clima únicos en Argentina para el cultivo de calidad.</p>
+      <div class="card-accent"></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">⚖️</span>
+      <h3 class="card-title">Marco legal</h3>
+      <p class="card-text">Ley Provincial VIII N° 119 aprobada. Registro de Productores, Fondo de Desarrollo y herramientas de promoción ya disponibles.</p>
+      <div class="card-accent"></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🏭</span>
+      <h3 class="card-title">Industria</h3>
+      <p class="card-text">Empresas con escala industrial apostando al café misionero. Tostadores y procesadores construyendo infraestructura para escalar.</p>
+      <div class="card-accent"></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">☕</span>
+      <h3 class="card-title">Gastronomía</h3>
+      <p class="card-text">Cafeterías y espacios gastronómicos incorporando el café local a su propuesta. Una identidad de origen que el consumidor está buscando.</p>
+      <div class="card-accent"></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🗺️</span>
+      <h3 class="card-title">Turismo</h3>
+      <p class="card-text">La Ruta de las Infusiones en construcción. Posadas, Oberá e Iguazú como destinos del turismo productivo y gastronómico.</p>
+      <div class="card-accent"></div>
+    </div>
+    <div class="card">
+      <span class="card-icon">🌐</span>
+      <h3 class="card-title">Exportaciones</h3>
+      <p class="card-text">Un mercado internacional que valora el origen y la trazabilidad. Misiones puede posicionarse como origen premium en el NEA.</p>
+      <div class="card-accent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEY DEL CAFÉ -->
+<section class="ley-section fade-in">
+  <div class="ley-left">
+    <p class="section-eyebrow">El respaldo institucional</p>
+    <h2 class="section-title">Una ley que abre <em>oportunidades concretas</em></h2>
+    <p class="section-body">La Ley VIII N° 119 no es solo un reconocimiento. Es una herramienta que habilita financiamiento, certifica la actividad y obliga al Estado a acompañar el desarrollo del sector.</p>
+    <div class="steam-divider" style="max-width:200px;"></div>
+  </div>
+  <div class="ley-right">
+    <div class="ley-item">
+      <div class="ley-num">01</div>
+      <div>
+        <div class="ley-text-title">Registro Provincial de Productores</div>
+        <div class="ley-text-body">Condición de acceso a beneficios tributarios, créditos y programas de apoyo provinciales y nacionales.</div>
+      </div>
+    </div>
+    <div class="ley-item">
+      <div class="ley-num">02</div>
+      <div>
+        <div class="ley-text-title">Fondo de Desarrollo Cafetero</div>
+        <div class="ley-text-body">Financiamiento para nuevas plantaciones, infraestructura, equipamiento y capacitación del sector.</div>
+      </div>
+    </div>
+    <div class="ley-item">
+      <div class="ley-num">03</div>
+      <div>
+        <div class="ley-text-title">Ferias y posicionamiento comercial</div>
+        <div class="ley-text-body">El Ministerio del Agro está obligado por ley a promover el café misionero en ferias y exposiciones nacionales e internacionales.</div>
+      </div>
+    </div>
+    <div class="ley-item">
+      <div class="ley-num">04</div>
+      <div>
+        <div class="ley-text-title">Articulación público-privada</div>
+        <div class="ley-text-body">La ley faculta al Ministerio a suscribir convenios con organismos privados para investigación, capacitación y desarrollo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIÉNES -->
+<section class="quienes-section fade-in">
+  <p class="section-eyebrow">El ecosistema está abierto a</p>
+  <h2 class="section-title">¿Quiénes forman<br>parte del <em>ecosistema?</em></h2>
+  <div class="quienes-grid">
+    <div class="quien-card">
+      <span class="quien-icon">🌿</span>
+      <h3 class="quien-title">Productores</h3>
+      <p class="quien-text">Pequeños y medianos productores que cultivan o quieren cultivar café en Misiones.</p>
+    </div>
+    <div class="quien-card">
+      <span class="quien-icon">☕</span>
+      <h3 class="quien-title">Cafeterías y Tostadores</h3>
+      <p class="quien-text">Espacios gastronómicos que trabajan o quieren incorporar el café misionero.</p>
+    </div>
+    <div class="quien-card">
+      <span class="quien-icon">🏢</span>
+      <h3 class="quien-title">Empresas</h3>
+      <p class="quien-text">Industrias, proveedores y empresas que ven una oportunidad en el desarrollo del sector.</p>
+    </div>
+    <div class="quien-card">
+      <span class="quien-icon">🏛️</span>
+      <h3 class="quien-title">Instituciones</h3>
+      <p class="quien-text">Municipios, organismos provinciales, universidades y cámaras empresariales.</p>
+    </div>
+    <div class="quien-card">
+      <span class="quien-icon">🗺️</span>
+      <h3 class="quien-title">Turismo</h3>
+      <p class="quien-card-text">Hoteles, agencias y operadores que quieren integrar las infusiones a su oferta turística.</p>
+    </div>
+    <div class="quien-card">
+      <span class="quien-icon">📡</span>
+      <h3 class="quien-title">Medios</h3>
+      <p class="quien-text">Comunicadores y periodistas que cubren el desarrollo productivo y turístico de Misiones.</p>
+    </div>
+    <div class="quien-card">
+      <span class="quien-icon">💰</span>
+      <h3 class="quien-title">Inversores</h3>
+      <p class="quien-text">Quienes ven en el café misionero una oportunidad de inversión productiva de largo plazo.</p>
+    </div>
+    <div class="quien-card">
+      <span class="quien-icon">🔬</span>
+      <h3 class="quien-title">Investigadores</h3>
+      <p class="quien-text">Científicos y técnicos que trabajan en variedades, procesos y mejoras para el sector.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section fade-in">
+  <p class="section-eyebrow">Es el momento de entrar</p>
+  <h2 class="section-title">El ecosistema se está<br>construyendo <em>ahora.</em></h2>
+  <p class="section-body">Los que entren primero van a tener ventaja. No porque el café misionero sea una moda. Sino porque cuando un mercado emerge, la posición importa.</p>
+  <button class="btn-cta" onclick="document.getElementById('email').focus(); window.scrollTo({top:0, behavior:'smooth'})">
+    Registrarme en el ecosistema
+  </button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Café de <span>Misiones</span></div>
+  <div class="footer-text">cafedemisiones.com.ar · Misiones, Argentina · 2026</div>
+  <div class="footer-infusiona">Una iniciativa de <strong>Misiones Infusiona</strong></div>
+</footer>
+
+<script>
+  // Form submission
+  document.getElementById('registro-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.btn-primary');
+    btn.textContent = 'Registrando...';
+    btn.disabled = true;
+
+    // Simulate API call
+    setTimeout(() => {
+      document.getElementById('form-content').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    }, 1200);
+  });
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
